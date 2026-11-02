@@ -160,3 +160,149 @@ Dotfiles 仓库同样会被克隆到持久化目录 /workspaces 中。
 
 这样，即使容器重新构建，原本存放在容器非持久化目录中的配置文件，也能够通过持久化目录得到保留。
  
+# Developing in a codespace
+- 通过 GitHub CLI 发起 SSH 连接，使用命令 shell
+- Visual Studio Code 桌面应用程序
+- 基于浏览器的 Visual Studio Code 版本
+
+Working in a codespace in VS Code
+- Side bar - By default, this area shows your project files in the Explorer.
+- Activity bar - This displays the Views and provides you with a way to switch between them. You can reorder the Views by dragging and dropping them.
+- Editor - This is where you edit your files. You can right-click the tab for a file to access options such as locating the file in the Explorer.
+- Panels - This is where you can see output and debug information, as well as the default place for the integrated Terminal.
+- Status bar - This area provides you with useful information about your codespace and project. For example, the branch name, configured ports, and more.
+
+Customizing the codespaces for a repository
+为仓库创建或更新开发容器配置，可以在 codespace 内完成此操作。更改开发容器配置后，可以通过为 codespace 重建 Docker 容器。
+
+Personalizing your codespace
+使用 dotfiles 仓库和设置同步来自定义您创建的任何代码空间环境的各个方面。自定义内容可以包括 shell 首选项和附加工具。
+
+Running your app from a codespace
+转发端口以测试和调试你的应用程序。你还可以管理端口协议，并在你的组织或公开范围内共享端口。
+
+Committing your changes
+对 codespace 进行了更改（无论是新代码还是配置更改）后，你会想要提交这些更改。
+
+Using the Visual Studio Code Command Palette
+命令面板允许你访问和管理 Codespaces 及 Visual Studio Code 的许多功能。
+
+Navigating to an existing codespace
+
+# Creating a codespace for a repository
+创建代码空间时，会执行多个步骤来创建开发环境并将您连接到该环境：
+Step 1: VM and storage are assigned to your codespace.
+Step 2: Container is created and your repository is cloned.
+Step 3: You can connect to the codespace.
+Step 4: Codespace continues with post-creation setup.
+
+In VS Code, in the Activity Bar, click the Remote Explorer icon.
+Hover over the "Remote Explorer" side bar and click +
+In the text box, type the name of the repository you want to develop in, then select it.
+Click the branch you want to develop on.
+If prompted to choose a dev container configuration file, choose a file from the list.
+Click the machine type you want to use.
+
+# Creating a codespace from a template
+About templates for GitHub Codespaces
+要开始一个新项目，可以通过从模板创建代码空间（codespace）快速开始开发工作。将文件保存在云端，并将工作发布到一个新的远程仓库，以便与他人共享或克隆到本地计算机。
+你可以从空白模板开始，从 GitHub 维护的流行技术模板（如 React 或 Jupyter Notebook）中选择，或者从 GitHub 上的任何模板仓库启动代码空间。
+使用空白模板时，您将从一个空目录开始，并可以访问基于云的计算资源，以及默认开发容器镜像中预装的工具、语言和运行时环境。
+使用其他模板时，您将获得当前技术所需的初始文件，通常还包含一些额外文件，例如 README 文件、.gitignore 文件，以及包含某些自定义环境配置的 dev container 配置文件。例如，如果您从 GitHub 的 React 模板创建 codespace，您将进入一个包含简单应用程序模板文件的工作区，例如 index.js、app.js 和 package.json。在 codespace 打开后不久，开发服务器将自动启动，您可以在 VS Code Web 客户端的简单浏览器选项卡中查看正在运行的应用程序。
+
+模板中包含的文件和配置在模板仓库中定义。当你创建代码空间时，模板仓库会被克隆到你的代码空间中。之后，链接即被切断，你的代码空间将不会与任何远程仓库关联，直到你将其发布到某个仓库。
+
+由 GitHub 维护的模板（包括空白模板）可从“你的 codespaces”页面获取。
+1. 在 GitHub 左上角，选择，然后单击 Codespaces，以进入 github.com/codespaces 上的“你的 codespaces”页面。
+2. 要查看模板的完整列表，请在“探索快速入门模板”部分中，单击“查看全部”。
+3. 要查看包含模板文件的模板仓库，请点击模板名称。
+4. 在要启动的模板名称下，点击“Use this template”（使用此模板）。
+
+从模板创建新的 codespace 时，它始终会在 Visual Studio Code Web 客户端中打开。您可以在任何受支持的编辑器中重新打开现有的 codespace。
+
+Creating a codespace from a template repository
+在 GitHub 上，导航到仓库的主页面。
+点击 Use this template（使用此模板），然后点击 Open in a codespace（在 codespace 中打开）。
+
+If you're a maintainer of the template repository, and want to commit changes to the template repository itself, you should create a codespace from the  Code dropdown. 
+
+Publishing to a repository on GitHub
+从模板创建的 codespace 中工作时，你的工作保存在云端的虚拟机上，但并未存储在 GitHub 上的仓库中。
+可以保存文件、关闭并停止 codespace，稍后再继续工作。通常工作目录会自动初始化为 Git 仓库，
+除非你从 GitHub 的空白模板开始。这意味着你可以立即使用 Git 进行本地源代码控制，例如添加和提交文件。
+
+但是，如果你删除了未发布的 codespace，或者自动删除，那么你的工作也会随之删除。为了持久保存你的工作，并允许他人参与你的项目，你需要将 codespace 发布到 GitHub 上的仓库。
+
+In the Activity Bar, click the Source Control view.
+To stage your changes, click + next to the file you've added or changed, or next to Changes if you've changed multiple files and you want to stage them all.
+To commit your staged changes, type a commit message describing the change you've made, then click Commit.
+Click Publish Branch.
+In the "Repository Name" dropdown, type a name for your new repository, then select Publish to GitHub private repository or Publish to GitHub public repository.
+Optionally, in the pop-up that appears in the lower right corner of the editor, click Open on GitHub to view the new repository on GitHub.
+
+可以从 GitHub 上的“你的 codespaces”页面发布一个未发布的 codespace。你的工作将被保存在一个仓库中，但现有的 codespace 与新仓库之间不会有链接。
+In the top-left corner of GitHub, select , then click  Codespaces to take you to the "Your codespaces" page at github.com/codespaces.
+Next to the unpublished codespace, click the ellipsis (...), then select Publish to a new repository.
+Choose a name for your new repository, set it as Public or Private, and click Create repository.
+
+# Deleting a codespace
+Codespaces 在停止后若保持非活动状态达到指定的天数，将被自动删除。每个 codespace 的保留期在创建时设定，之后不会改变。默认保留期为 30 天。
+Why you should delete unused codespaces
+Codespaces 会产生存储费用。因此，您应删除任何不再需要的 codespace。
+创建的 codespace 数量以及可以同时运行的 codespace 数量均有限制。
+In VS Code, in the Activity Bar, click the Remote Explorer icon.
+Under "GitHub Codespaces," right-click the codespace you want to delete.
+Click Delete Codespace.
+
+可以使用 GitHub CLI 通过单个命令删除多个或所有的 codespaces。
+
+# Opening an existing codespace
+你可以重新打开任何处于活动或已停止状态的 codespace。已删除的 codespace 无法重新打开。
+“你的 codespaces”页面查看所有 codespace。在此页面中，你可以：
+打开、停止或删除你的 codespace。
+查看谁拥有（并可能支付）你的 codespace：你的个人帐户或你所属的组织。请参阅 GitHub Codespaces 计费。
+查看 codespace 的机器类型、大小及状态。
+创建新的 codespace，既可以选择 GitHub 的模板之一，也可以点击“新建 codespace”。请参阅从模板创建 codespace 和为仓库创建 codespace。
+防止 codespace 被自动删除。请参阅配置 codespace 的自动删除。
+
+In the VS Code desktop application, open the Command Palette with Command+Shift+P (Mac) or Ctrl+Shift+P (Windows/Linux).
+Type "Codespaces" and select one of the following commands.
+To open a codespace in a new window of VS Code, select Codespaces: Open Codespace in New Window
+To open a codespace in the web editor, select Codespaces: Open in Browser
+
+Click the codespace that you want to open.
+You can also access the commands listed above by navigating to the Remote Explorer view in VS Code and right-clicking the codespace that you want to open.
+
+Linking to an existing codespace
+可以为已经创建的 Codespace 生成专属链接。
+如果你拥有一个长期使用、需要频繁访问的 Codespace，这项功能会非常实用。你可以将该链接保存在自己方便访问的位置
+你只能打开属于自己的 Codespace。
+如果其他人点击了指向你某个 Codespace 的链接，他们将看到 404 错误页面。
+
+在这些 URL 中，CODESPACE-NAME 表示 Codespace 唯一且永久的名称（Unique, Permanent Name），例如：
+literate-space-parakeet-w5vg5ww5p793g7g9
+请注意，这里使用的不是 Codespace 的显示名称（Display Name）。
+如果你想查找某个 Codespace 的名称，可以前往 GitHub Codespaces 页面，复制该 Codespace 的访问链接，然后从 URL 中提取对应的 Codespace 名称。
+| 打开位置                         | 链接格式                                                                                      |
+| -------------------------------- | --------------------------------------------------------------------------------------------- |
+| VS Code Web 客户端               | `https://CODESPACE-NAME.github.dev`                                                           |
+| VS Code Web 客户端（指定工作区） | `https://CODESPACE-NAME.github.dev?folder=/workspaces/PATH/TO/WORKSPACE/DIRECTORY`            |
+| VS Code 桌面应用程序             | `https://github.com/codespaces/CODESPACE-NAME?editor=vscode`                                  |
+| JupyterLab                       | `https://github.com/codespaces/CODESPACE-NAME?editor=jupyter`                                 |
+
+# Working collaboratively in a codespace
+ Live Share 允许你在代码空间内与他人实时协作编辑和调试。你可以安全地共享当前的代码空间，或访问他人创建的代码空间。
+你可以在浏览器中的 VS Code Web 客户端内，或在 VS Code 桌面应用程序中启动 Live Share 会话。
+In the Activity Bar, click the Extensions icon.
+In the search box, type Live Share.
+If the Install button is displayed beside the extension, click it to install the extension in the codespace.
+If the extension is shown grayed out in the list, right-click it and click Enable.
+In the Activity Bar, click the Live Share icon.
+Click Share.
+A "toast" notification message is displayed at the bottom right corner of VS Code, telling you that a link to your codespace has been copied to the clipboard. You can click Make read-only if you want to prevent guests from making changes to the files you share with them.
+Send the link in your clipboard to anyone you want to join you in your Live Share session.
+Stopping a Live Share session
+
+如果您作为启动 Live Share 会话的人关闭了 codespace，那么即使该 codespace 在远程主机上仍保持活动状态，共享会话也会结束。
+空闲超时会在一段不活动后自动停止 codespace，但这仅适用于启动该 codespace 的人，而不适用于通过 Live Share 在该 codespace 上工作的人。因此，如果启动 codespace 的人在配置的时间段内保持不活动，codespace 可能会在协作者使用它时超时。
+

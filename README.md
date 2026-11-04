@@ -306,3 +306,66 @@ Stopping a Live Share session
 如果您作为启动 Live Share 会话的人关闭了 codespace，那么即使该 codespace 在远程主机上仍保持活动状态，共享会话也会结束。
 空闲超时会在一段不活动后自动停止 codespace，但这仅适用于启动该 codespace 的人，而不适用于通过 Live Share 在该 codespace 上工作的人。因此，如果启动 codespace 的人在配置的时间段内保持不活动，codespace 可能会在协作者使用它时超时。
 
+# Using source control in your codespace
+About source control in GitHub Codespaces
+可以从远程仓库获取更改、切换分支、创建新分支、提交并推送更改，以及创建拉取请求。
+在集成终端输入 Git 命令，或者点击图标和菜单选项来完成所有最常见的 Git 任务。
+本指南将介绍如何使用图形用户界面进行源代码管理。
+使用 GitHub Codespaces 更新文件的典型工作流如下：
+• 从 GitHub 上仓库的默认分支创建代码空间。
+• 在代码空间中，创建一个新分支进行工作。
+• 进行更改并保存。
+• 提交更改。
+• 发起拉取请求。
+About automatic forking
+如果你只有某个仓库的读取权限（Read Access），但希望为该仓库创建 Codespace，则必须拥有 Fork（派生）该仓库的权限。
+如果你在 Codespace 中创建了 Commit（提交），或者推送了一个新分支，GitHub Codespaces 将执行以下操作之一：
+- 在你的 GitHub 账户下创建该仓库的 Fork，并将其与你当前的 Codespace 关联。
+- 如果你已经 Fork 过该仓库，则直接将 Codespace 关联到现有的 Fork。
+完成关联后，你就可以将修改推送到自己的 Fork 仓库，并通过创建 Pull Request（拉取请求）的方式，向上游仓库（Upstream Repository）提交修改建议。
+
+如果你删除了自己的 Fork 仓库，那么所有关联到该 Fork 的 Codespace 也会随之删除，即使这些 Codespace 最初是直接从上游仓库创建的。
+
+上游仓库会被重新命名为 upstream，而你的 Fork 仓库则会作为一个新的远程仓库，以 origin 为名称添加到 Git 配置中。
+例如，你可以从上游仓库获取最新修改，确保当前 Codespace 中的代码与项目最新版本保持同步：
+```bash
+git fetch upstream
+
+成修改后，你可以将代码推送到自己 Fork 仓库中的某个功能分支（Feature Branch）：
+```bash
+git push origin my-feature-branch
+
+# Publishing a codespace created from a templat
+In the Activity Bar, click the Source Control view.
+To stage your changes, click + next to the file you've added or changed, or next to Changes if you've changed multiple files and you want to stage them all.
+To commit your staged changes, type a commit message describing the change you've made, then click Commit.
+Click Publish Branch.
+In the "Repository Name" dropdown, type a name for your new repository, then select Publish to GitHub private repository or Publish to GitHub public repository.
+
+# Creating or switching branches
+If the current branch is not shown in the status bar, at the bottom of your codespace, right-click the status bar and select Source control.
+Click the branch name in the status bar.
+In the dropdown, either click the branch you want to switch to, or enter the name for a new branch and click Create new branch.
+
+
+# Pulling changes from the remote repository
+In the Activity Bar, click the Source Control view.
+At the top of the side bar, click ...
+In the dropdown menu, click Pull.
+
+# Setting your codespace to automatically fetch new changes
+将代码空间设置为自动获取远程仓库中任何新提交的详细信息。这样你就能查看本地仓库副本是否过时，如果过时，你可以选择拉取新更改。
+
+如果获取操作检测到远程仓库有新的更改，你会在状态栏中看到新提交的数量。然后你可以将这些更改拉取到本地副本中。
+
+In the menu, click Settings.
+
+On the Settings page, search for: autofetch.
+
+To fetch details of updates for all remotes registered for the current repository, set Git: Autofetch to all.
+
+想更改每次自动获取之间的秒数，请编辑 Git: Autofetch Period 的值。
+
+# Raising a pull request
+After you've committed changes to your local copy of the repository, click the pull request icon at the top of the "Source Control" side bar.
+

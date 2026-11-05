@@ -368,4 +368,93 @@ To fetch details of updates for all remotes registered for the current repositor
 
 # Raising a pull request
 After you've committed changes to your local copy of the repository, click the pull request icon at the top of the "Source Control" side bar.
+Check that the local branch and repository you're merging from, and the remote branch and repository you're merging into, are correct. Then give the pull request a title and a description.
+Click Create.
 
+# Pushing changes to your remote repository
+可以推送已保存并提交过的更改。这会将更改应用到远程仓库的上游分支。如果你尚未准备好创建拉取请求，或者你更喜欢在 GitHub 上创建拉取请求，可能会需要这样做。
+At the top of the side bar, click ...
+In the dropdown menu, click Push.
+
+# Using GitHub Codespaces for pull requests
+You can use GitHub Codespaces in your web browser, or in Visual Studio Code to create pull requests, review pull requests, and address review comments.
+
+# Opening a pull request in Codespaces
+Under your repository name, click Pull requests.
+In the list of pull requests, click the pull request you'd like to open in Codespaces.
+On the right-hand side of your screen, click Code.
+In the Codespaces tab, click +
+
+# Reviewing a pull request in Codespaces
+In the Activity Bar, click the Git pull request icon to display the "GitHub Pull Request" side bar. This icon is only displayed in the Activity Bar when you open a pull request in a codespace.
+In the Activity Bar, click the Git pull request icon to display the "GitHub Pull Request" side bar. This icon is only displayed in the Activity Bar when you open a pull request in a codespace.
+
+To add a review comment, click the + sign next to the line number in the file displayed on the right side of the editor.
+
+# Stopping and starting a codespace
+You can stop and start your codespace to save resources and to pause work.
+你可以随时停止一个 codespace。停止 codespace 时，任何正在运行的进程都会停止。你在 codespace 中保存的所有更改在下次启动时仍然可用。终端历史记录会被保留，但终端窗口的可见内容不会在不同 codespace 会话之间保留。
+如果你没有明确停止 codespace，它将继续运行，直到因不活动而超时。关闭 codespace 并不会停止它。例如，如果你在 VS Code 网页客户端中使用 codespace 并关闭浏览器标签页，codespace 仍会在远程机器上运行。有关超时的信息，请参阅了解 codespace 生命周期。
+只有运行中的 codespace 会产生 CPU 费用。已停止的 codespace 仅产生存储费用。
+你可能希望停止并重新启动 codespace 以应用更改。例如，如果你更改了 codespace 使用的机器类型，则需要停止并重新启动它才能使更改生效。如果遇到错误或意外情况，你也可以停止 codespace 并选择重新启动或删除它。
+注意
+无论其空闲超时设置如何，codespace 的最长生命周期为 12 小时。有关更多信息，请参阅了解 codespace 生命周期。
+
+Open the VS Code Command Palette (Shift+Command+P (Mac) / Ctrl+Shift+P (Windows/Linux)).
+Type stop and select Codespaces: Stop Codespace from the list of options.
+In the list of codespaces, select the codespace you want to stop.
+
+# Restarting a codespace
+Open the VS Code Command Palette (Shift+Command+P (Mac) / Ctrl+Shift+P (Windows/Linux)).
+Type connect and select Codespaces: Connect to Codespace from the list of options.
+In the list of codespaces, select the codespace you want to restart.
+
+Forwarding ports in your codespace
+你可以在代码空间中转发端口以测试和调试应用程序。你还可以管理端口协议，并在组织内或公开共享端口。
+端口转发让你可以访问代码空间内运行的 TCP 端口。例如，如果你在代码空间的某个端口上运行 Web 应用程序，可以转发该端口。这样，你就能从本地计算机的浏览器访问该应用程序，进行测试和调试。
+
+当代码空间内运行的应用程序向终端打印包含 localhost URL 的输出时（例如 http://localhost:PORT
+ 或 http://127.0.0.1:PORT
+），该端口会自动被转发。如果你在浏览器或 Visual Studio Code 中使用 GitHub Codespaces，终端中的 URL 字符串会被转换为链接，点击即可在本地计算机上查看网页。默认情况下，GitHub Codespaces 使用 HTTP 转发端口。
+
+你可以编辑仓库的开发容器配置，以自动转发一个或多个端口。也可以手动转发端口、为转发的端口添加标签、与组织成员共享转发的端口、公开共享转发的端口，以及将转发的端口添加到代码空间配置中。
+
+# Forwarding a port
+You can manually forward a port that wasn't forwarded automatically.
+Open the terminal in your codespace.
+Click the PORTS tab.
+Under the list of ports, click Add port.
+Type the port number or address, then press Enter.
+
+如果你想与他人共享转发的端口，你可以将该端口设为组织私有或公开。将端口设为组织私有后，组织内任何拥有该端口 URL 的人都可以查看正在运行的应用程序。将端口设为公开后，任何知道 URL 和端口号的人都可以在无需身份验证的情况下查看正在运行的应用程序。
+
+Open the terminal in your codespace.
+Click the PORTS tab.
+Right-click the port that you want to share, click Port Visibility, then click Private to Organization or Public.
+To the right of the local address for the port, click the copy icon.
+Send the copied URL to the person you want to share the port with.
+
+# Finding the GITHUB_TOKEN
+In the terminal in your codespace, enter echo $GITHUB_TOKEN.
+The token is a string beginning ghu_.
+
+# Automatically forwarding a port
+你可以为仓库的 GitHub Codespaces 配置添加一个转发端口，这样从该仓库创建的所有 codespace 都会自动转发该端口。更新配置后，任何之前创建的 codespace 都必须重新构建才能使更改生效。有关开发容器配置文件的更多信息，请参阅“开发容器简介”。
+
+1. 在你的 codespace 中，打开要更新的开发容器配置文件。通常该文件为 `.devcontainer/devcontainer.json`。
+2. 添加 `forwardPorts` 属性。
+   `"forwardPorts": [NUMBER],`
+   将 `NUMBER` 替换为要转发的端口号。这可以是一个以逗号分隔的端口号列表。
+3. 保存文件。
+
+# Labeling a port
+当你在浏览器或 VS Code 桌面应用程序中打开一个代码空间时，可以为转发的端口添加标签，以便在列表中更容易识别。
+Open the terminal in your codespace.
+Click the PORTS tab.
+Right-click the port you want to label, then click Set Port Label.
+Type a label for your port, then press Enter.
+
+# Automatically labeling a forwarded port
+
+到了Rebuilding the container in a codespace
+这里以后在学
